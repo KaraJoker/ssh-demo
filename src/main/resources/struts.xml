@@ -42,9 +42,9 @@
 
 		<!-- 展示用户 -->
 		<action name="checkUser" class="com.fyc.action.UserAction" method="checkUser">
-			<result type="json">
+			<!--<result type="json">
 				<param name="root">state</param>
-			</result>
+			</result>-->
 		</action>
 		
 		<!-- 删除测试 -->

@@ -20,20 +20,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	
-	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
+	<script type="text/javascript" src="/bootstrap/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript">
         $(document).ready(function(){
             $.ajax({
-            type:'post',
-            dataType:'json',
-            async:false,
-            url:'<%=basePath%>checkUser.action',
-            success:function(data){
-                if(data == 1)
-                    alert("新增成功！");
-            }
-        	});
+                type: "get",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                url: "<%=basePath%>checkUser.action",
+                success: function (msg) {
+                    /*if (msg) {
+                        var str = "";
+                        var data = msg.data;
+                        alert(msg);
+                        for (var i in data) {
+                            str += "<tr>" +
+                                "<td align='center'>" + data[i].id + "</td>" +
+                                "<td align='center'>" + data[i].password + "</td>" +
+                                "<td align='center'>" + data[i].userName + "</td>" +
+                                "</tr>";
+                        }
+                        $("#tbody-result").innerHTML = str;
+                    }*/
+                },
+                error: function () {
+                    alert("查询失败")
+                }
+            });
         });
 	</script>
   </head>
@@ -48,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<h3>展示用户</h3>
 		<div>
-			<table>
+			<table id="table-result" width="80%" align="center" border="1">
 				<thead>
 					<tr>
 						<td>序号</td>
@@ -56,15 +70,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>姓名</td>
 					</tr>
 				</thead>
-				<tbody>
-					<c:if test="${userList}" var="user">
+				<tbody id="tbody-result">
+					<c:if test="${result.userList}" var="user">
 						<tr>
 							<td>${user.id}</td>
 							<td>${user.password}</td>
 							<td>${user.userName}</td>
 						</tr>
 					</c:if>
-				</tbody>
+				</tbody >
 			</table>
 		</div>
 		<h3>删除测试</h3>

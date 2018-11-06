@@ -1,6 +1,8 @@
 package com.fyc.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,18 +96,20 @@ public class UserAction extends ActionSupport {
 	/**
 	 * 注册测试
 	 * @date	2018-6-20 上午9:47:42
-	 * @author	live
+	 * @author	Outcaster
 	 * @return
 	 */
-	public String checkUser(){
+	public Object checkUser(){
 		hql = "from User AS user";
 		List<User> userList = this.userService.checkUser(hql);
+		Map<String,List<User>> result=new HashMap<String,List<User>>();
+		result.put("userList",userList);
 		if(userList.size() > 0)
 			state = 1;
 		else
 			state = 0;
 
-		return JSON.toJSONString(userList);
+		return result;
 	}
 	
 	/**
